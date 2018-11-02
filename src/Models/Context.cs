@@ -8,6 +8,6 @@
         {
         }
 
-        public DbSet<Item> Items { get; set; }
+        public DbSet<TodoItem> Items { get; set; }
     }
 }

@@ -10,26 +10,24 @@
         [ActionName("Index")]
         public async Task<ActionResult> IndexAsync()
         {
-            var items = await DocumentDBRepository<Item>.GetItemsAsync(d => !d.Completed);
+            var items = await TodoItemService.GetOpenItemsAsync();
             return View(items);
         }
-
-#pragma warning disable 1998
+        
         [ActionName("Create")]
         public async Task<ActionResult> CreateAsync()
         {
             return View();
         }
-#pragma warning restore 1998
 
         [HttpPost]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync([Bind(Include = "Id,Name,Description,Completed,Category")] Item item)
+        public async Task<ActionResult> CreateAsync([Bind(Include = "Id,Name,Description,Completed,Category")] TodoItem item)
         {
             if (ModelState.IsValid)
             {
-                await DocumentDBRepository<Item>.CreateItemAsync(item);
+                await TodoItemService.CreateItemAsync(item);
                 return RedirectToAction("Index");
             }
 
@@ -39,11 +37,11 @@
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync([Bind(Include = "Id,Name,Description,Completed,Category")] Item item)
+        public async Task<ActionResult> EditAsync([Bind(Include = "Id,Name,Description,Completed,Category")] TodoItem item)
         {
             if (ModelState.IsValid)
             {
-                await DocumentDBRepository<Item>.UpdateItemAsync(item.Id, item);
+                await TodoItemService.UpdateItemAsync(item);
                 return RedirectToAction("Index");
             }
 
@@ -58,7 +56,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
+            TodoItem item = await TodoItemService.GetTodoItemAsync(id, category);
             if (item == null)
             {
                 return HttpNotFound();
@@ -75,7 +73,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
+            TodoItem item = await TodoItemService.GetTodoItemAsync(id, category);
             if (item == null)
             {
                 return HttpNotFound();
@@ -89,14 +87,14 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmedAsync([Bind(Include = "Id, Category")] string id, string category)
         {
-            await DocumentDBRepository<Item>.DeleteItemAsync(id, category);
+            await TodoItemService.DeleteItemAsync(id, category);
             return RedirectToAction("Index");
         }
 
         [ActionName("Details")]
         public async Task<ActionResult> DetailsAsync(string id, string category)
         {
-            Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
+            TodoItem item = await TodoItemService.GetTodoItemAsync(id, category);
             return View(item);
         }
     }

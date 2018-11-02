@@ -3,7 +3,7 @@
     using Microsoft.Azure.Documents;
     using Newtonsoft.Json;
 
-    public class Item
+    public class TodoItem
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
