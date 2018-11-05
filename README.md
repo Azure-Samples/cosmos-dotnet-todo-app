@@ -51,7 +51,7 @@ For additional ways to deploy this web application to Azure, please refer to the
 The code included in this sample is intended to get you going with a simple ASP.NET MVC application that connects to Azure Cosmos DB. It is not intended to be a set of best practices on how to build scalable enterprise grade web applications. This is beyond the scope of this quick start sample. 
 
 ## More information
-ocument
+
 - [Azure Cosmos DB Documentation](https://docs.microsoft.com/en-us/azure/cosmos-db/index)
 - [Azure Cosmos DB .NET SDK](https://docs.microsoft.com/azure/cosmos-db/sql-api-sdk-dotnet)
 - [Azure Cosmos DB .NET SDK Reference Documentation](https://docs.microsoft.com/dotnet/api/overview/azure/cosmosdb?view=azure-dotnet)
