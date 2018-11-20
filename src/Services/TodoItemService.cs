@@ -12,10 +12,10 @@ namespace todo
 
     public static class TodoItemService
     {
-        private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"] ?? "SampleDatabase";
-        private static readonly string ContainerId = ConfigurationManager.AppSettings["collection"] ?? "Todo";
+        private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"] ?? "Tasks";
+        private static readonly string ContainerId = ConfigurationManager.AppSettings["container"] ?? "Items";
         private static readonly string Endpoint = ConfigurationManager.AppSettings["endpoint"];
-        private static readonly string MasterKey = ConfigurationManager.AppSettings["masterKey"];
+        private static readonly string PrimaryKey = ConfigurationManager.AppSettings["primaryKey"];
         private static CosmosItemSet items;
         private static CosmosClient client;
 
@@ -27,8 +27,10 @@ namespace todo
 
         public static async Task<IEnumerable<TodoItem>> GetOpenItemsAsync()
         {
-            var querySpec = new CosmosSqlQueryDefinition("select * from c where c.isComplete != true");
+            var queryText = "SELECT* FROM c WHERE c.isComplete != true";
+            var querySpec = new CosmosSqlQueryDefinition(queryText);
             var query = items.CreateItemQuery<TodoItem>(querySpec, maxConcurrency: 4);
+
             List<TodoItem> results = new List<TodoItem>();
             while (query.HasMoreResults)
             {
@@ -61,17 +63,11 @@ namespace todo
         public static async Task Initialize()
         {
             CosmosConfiguration config;
-            if(String.IsNullOrEmpty(Endpoint))
-            {
-                config = CosmosConfiguration.GetDefaultEmulatorCosmosConfiguration();
-            }
-            else
-            {
-                config = new CosmosConfiguration(Endpoint, MasterKey);
-            }
+            config = new CosmosConfiguration(Endpoint, PrimaryKey);
             client = new CosmosClient(config);
-            CosmosDatabase db = await client.Databases.CreateDatabaseIfNotExistsAsync(DatabaseId);
-            CosmosContainer container = await db.Containers.CreateContainerIfNotExistsAsync(ContainerId, "/category");
+
+            CosmosDatabase database = await client.Databases.CreateDatabaseIfNotExistsAsync(DatabaseId);
+            CosmosContainer container = await database.Containers.CreateContainerIfNotExistsAsync(ContainerId, "/category");
             items = container.Items;
         }
     }
