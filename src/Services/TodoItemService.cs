@@ -29,6 +29,9 @@ namespace todo
         {
             var queryText = "SELECT* FROM c WHERE c.isComplete != true";
             var querySpec = new CosmosSqlQueryDefinition(queryText);
+
+            // Selecting all tasks that are not completed is a cross partition query. 
+            // We set the max concurrency to 4, which controls the max number of partitions that our client will query in parallel.
             var query = items.CreateItemQuery<TodoItem>(querySpec, maxConcurrency: 4);
 
             List<TodoItem> results = new List<TodoItem>();
