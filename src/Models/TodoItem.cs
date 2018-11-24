@@ -1,6 +1,5 @@
 ﻿namespace todo.Models
 {
-    using Microsoft.Azure.Documents;
     using Newtonsoft.Json;
 
     public class TodoItem

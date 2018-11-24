@@ -65,8 +65,7 @@ namespace todo
 
         public static async Task Initialize()
         {
-            CosmosConfiguration config;
-            config = new CosmosConfiguration(Endpoint, PrimaryKey);
+            CosmosConfiguration config = new CosmosConfiguration(Endpoint, PrimaryKey);
             client = new CosmosClient(config);
 
             CosmosDatabase database = await client.Databases.CreateDatabaseIfNotExistsAsync(DatabaseId);
