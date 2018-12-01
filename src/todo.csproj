@@ -57,11 +57,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.2-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Cosmos, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.0.0-preview\lib\net461\Microsoft.Azure.Cosmos.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Cosmos.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Cosmos.3.0.0-preview\lib\netstandard2.0\Microsoft.Azure.Cosmos.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Cosmos.Direct, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.Direct.3.0.0-preview\lib\netstandard2.0\Microsoft.Azure.Cosmos.Direct.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Cosmos.Direct, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.Direct.3.0.0-preview\lib\net461\Microsoft.Azure.Cosmos.Direct.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -248,13 +251,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\Microsoft.Azure.Documents.ServiceInterop.2.0.0-RC1\build\Microsoft.Azure.Documents.ServiceInterop.targets" Condition="Exists('..\packages\Microsoft.Azure.Documents.ServiceInterop.2.0.0-RC1\build\Microsoft.Azure.Documents.ServiceInterop.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Azure.Documents.ServiceInterop.2.0.0-RC1\build\Microsoft.Azure.Documents.ServiceInterop.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.Documents.ServiceInterop.2.0.0-RC1\build\Microsoft.Azure.Documents.ServiceInterop.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
