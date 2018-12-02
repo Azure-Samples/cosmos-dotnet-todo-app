@@ -16,7 +16,7 @@ namespace todo
         private static readonly string ContainerId = ConfigurationManager.AppSettings["container"] ?? "Items";
         private static readonly string Endpoint = ConfigurationManager.AppSettings["endpoint"];
         private static readonly string PrimaryKey = ConfigurationManager.AppSettings["primaryKey"];
-        private static CosmosItemSet items;
+        private static CosmosItems items;
         private static CosmosClient client;
 
         public static async Task<TodoItem> GetTodoItemAsync(string id, string partitionKey)
